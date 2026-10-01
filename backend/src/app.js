@@ -8,6 +8,7 @@ import { connectToSocket } from "../controllers/socketManager.js";
 
 import mongoose from "mongoose";
 import { connect } from "node:http2";
+import "dotenv/config";
 
 import userRoutes from "../routes/user.routes.js";
 
@@ -28,9 +29,7 @@ app.get("/home", (req, res) => {
 });
 
 const start = async () => {
-  const connectionDb = await mongoose.connect(
-    "mongodb+srv://chiranjeevi:chiri2166@cluster0.jbhwmqx.mongodb.net/?appName=Cluster0",
-  );
+  const connectionDb = await mongoose.connect(process.env.MONGO_URI);
   console.log(`mongo connected: ${connectionDb.connection.host}`);
   server.listen(app.get("port"), (req, res) => {
     return console.log("listening on port 1010");
